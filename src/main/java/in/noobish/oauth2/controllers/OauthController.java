@@ -3,13 +3,13 @@ package in.noobish.oauth2.controllers;
 import java.io.IOException;
 
 
+import in.noobish.oauth2.OauthHttpClient.OAuthOkHttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.client.OAuthClient;
-import org.apache.oltu.oauth2.client.URLConnectionClient;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
 import org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;
 import org.apache.oltu.oauth2.common.OAuthProviderType;
@@ -52,7 +52,7 @@ public class OauthController {
                 .setCode(authCode)
                 .buildBodyMessage();
 
-        OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+        OAuthClient oAuthClient = new OAuthClient(new OAuthOkHttpClient());
 
         //Facebook is not fully compatible with OAuth 2.0 draft 10, access token response is
         //application/x-www-form-urlencoded, not json encoded so we use dedicated response class for that
